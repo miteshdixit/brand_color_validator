@@ -37,7 +37,7 @@ const uploadAndAnalyze = async (req, res) => {
 
     // Find closest brand color
     const closestColor = colorDiff.closest(extractedColor, brandColors);
-    const isMatch = colorDiff.diff(extractedColor, closestColor) < 1000;
+    const isMatch = colorDiff.diff(extractedColor, closestColor) < 100;
 
     // Check for accessibility (against white background)
     const extractedHex = `#${(

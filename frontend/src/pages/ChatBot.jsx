@@ -11,7 +11,6 @@ const ChatBot = () => {
   const handleSend = async () => {
     if (!userInput.trim()) return;
 
-    // Add user message
     setMessages((prev) => [...prev, { sender: "user", text: userInput }]);
 
     const requestBody = {
@@ -24,7 +23,6 @@ const ChatBot = () => {
         response.data?.candidates?.[0]?.content?.parts?.[0]?.text ||
         "Sorry, I didn't get that.";
 
-      // Add bot response
       setMessages((prev) => [...prev, { sender: "bot", text: botReply }]);
     } catch (error) {
       console.error("API Error:", error);
@@ -34,20 +32,26 @@ const ChatBot = () => {
       ]);
     }
 
-    setUserInput(""); // Clear input
+    setUserInput("");
   };
 
   return (
-    <div className="flex flex-col h-[400px]  bg-gray-100 p-4">
+    <div className="flex flex-col h-[400px] p-4 bg-gray-100 rounded-xl shadow-lg">
       {/* Chat Area */}
-      <div className="flex-1 overflow-y-auto bg-white rounded-xl shadow-md p-4 space-y-2">
+      <h1 className="text-center font-bold p-1">I'm Here To Help You!</h1>
+      <div className="flex-1 overflow-y-auto bg-white rounded-xl shadow-md p-4 space-y-2 relative">
+        <img
+          className="h-60 w-50 absolute top-10 left-10 opacity-15 "
+          src="/robot.jpg"
+          alt="chat-bot"
+        />
         {messages.map((msg, index) => (
           <div
             key={index}
             className={`p-2 rounded-lg max-w-xs ${
               msg.sender === "user"
-                ? "ml-auto bg-blue-500 text-white"
-                : "mr-auto bg-gray-200 text-black"
+                ? "ml-5 bg-blue-500 text-white"
+                : "mr-5 bg-gray-200 text-black"
             }`}
           >
             {msg.text}
