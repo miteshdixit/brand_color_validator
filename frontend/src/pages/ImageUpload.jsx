@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { FiUpload, FiTrash2 } from "react-icons/fi";
 import axios from "axios";
+import { API_URL } from "../api";
 
 const ImageUpload = ({ setReport, setIsImage, isImage }) => {
   const [uploading, setUploading] = useState(false);
@@ -24,15 +25,11 @@ const ImageUpload = ({ setReport, setIsImage, isImage }) => {
       const formData = new FormData();
       formData.append("image", file);
 
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/uploads",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post(`${API_URL}/uploads`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       setReport(response.data);
       setUploadedImage(response.data.fileUrl);

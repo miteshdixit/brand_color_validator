@@ -58,7 +58,7 @@ const ReportDisplay = ({ report }) => {
         <h1 className="text-5xl font-bold text-red-500 mb-4">
           Upload An Image First For Report!
         </h1>
-        <img className="w-1/2 mx-auto" src="/uploadImage.png" alt="girl" />
+        <img className="w-3/5 mx-auto " src="/uploadImage.png" alt="girl" />
       </div>
     );
   }
