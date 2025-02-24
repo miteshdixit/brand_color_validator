@@ -8,12 +8,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "node init && nodemon index.js"
   },
   "dependencies": {
     "color-diff": "^1.4.0",
     "cores": "^0.8.5",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "multer": "^1.4.5-lts.1",
     "node-vibrant": "^4.0.3",
