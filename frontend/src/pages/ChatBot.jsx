@@ -39,9 +39,9 @@ const ChatBot = () => {
     <div className="flex flex-col h-[400px] p-4 bg-gray-100 rounded-xl shadow-lg">
       {/* Chat Area */}
       <h1 className="text-center font-bold p-1">I'm Here To Help You!</h1>
-      <div className="flex-1 overflow-y-auto bg-white rounded-xl shadow-md p-4 space-y-2 relative">
+      <div className="flex-1 overflow-y-auto  rounded-xl  p-4 space-y-2 relative bg-grey-300">
         <img
-          className="h-60 w-50 absolute top-10 left-10 opacity-15 "
+          className="h-60 w-50 absolute top-10 left-10 opacity-10 "
           src="/robot.jpg"
           alt="chat-bot"
         />
@@ -50,8 +50,8 @@ const ChatBot = () => {
             key={index}
             className={`p-2 rounded-lg max-w-xs ${
               msg.sender === "user"
-                ? "ml-5 bg-blue-500 text-white"
-                : "mr-5 bg-gray-200 text-black"
+                ? "ml-5 bg-blue-700 text-white"
+                : "mr-5 bg-green-400 text-black"
             }`}
           >
             {msg.text}
@@ -71,7 +71,7 @@ const ChatBot = () => {
         />
         <button
           onClick={handleSend}
-          className="bg-blue-500 text-white p-2 rounded-r-lg hover:bg-blue-600"
+          className="bg-blue-500 text-white p-2 rounded-r-lg hover:bg-blue-600 ml-1"
         >
           Send
         </button>

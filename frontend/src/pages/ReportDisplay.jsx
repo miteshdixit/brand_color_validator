@@ -54,7 +54,12 @@ const ReportDisplay = ({ report }) => {
 
   if (!report) {
     return (
-      <div className="text-center text-gray-600">No report data available.</div>
+      <div className="flex flex-col justify-center text-center align-middle">
+        <h1 className="text-5xl font-bold text-red-500 mb-4">
+          Upload An Image First For Report!
+        </h1>
+        <img className="w-1/2 mx-auto" src="/uploadImage.png" alt="girl" />
+      </div>
     );
   }
 

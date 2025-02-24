@@ -2,57 +2,82 @@ import React, { useState } from "react";
 import ImageUpload from "./ImageUpload";
 import ReportDisplay from "./ReportDisplay";
 import { FaDownload, FaRobot, FaInfoCircle } from "react-icons/fa";
+import ChatBot from "./ChatBot";
+import { VscDebugRestart } from "react-icons/vsc";
+
+import { handleDownloadReport } from "../Component/download";
 
 const DashBoard = () => {
   const [report, setReport] = useState(null);
+  const [isImage, setIsImage] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
 
+  const handleRestart = () => {
+    setIsImage(false);
+    setReport(null);
+  };
+
   return (
-    <div className="h-screen">
-      <h1 className="text-3xl font-bold text-center text-blue-800 m-5 ">
-        Brand Color Validator
-      </h1>
+    <div className="min-h-screen flex flex-col bg-gray-100 p-2">
+      <div className="flex flex-col lg:flex-row flex-1 gap-4">
+        {/* Left Panel */}
+        <div className="w-full lg:w-2/5 flex flex-col bg-white rounded-xl shadow-2xl p-4">
+          <h1 className="font-bold text-3xl sm:text-4xl text-black text-center mt-4 lg:mb-0 mb-5 ">
+            <span className="text-red-500">Imagi</span>Dator
+          </h1>
 
-      <div className="grid grid-cols-12 ">
-        <div className="col-span-5 flex flex-col p-2 md:p-4 border-1  rounded-xl bg-white">
-          <div className=" h-[70vh]  flex items-center justify-center">
-            <ImageUpload setReport={setReport} />
+          <div className="flex-[0.7] flex items-center justify-center">
+            <ImageUpload
+              setReport={setReport}
+              setIsImage={setIsImage}
+              isImage={isImage}
+            />
           </div>
 
-          <div className="col-span-5  h-[100px] p-4  rounded-lg shadow-lg text-white m-2">
-            <div className="flex justify-center md:gap-15 mt-2 gap-4">
-              <button
-                className="p-3 bg-white rounded-full shadow-md hover:bg-gray-100 transition"
-                title="Download"
-              >
-                <FaDownload className="text-gray-600 text-xl" />
-              </button>
+          {/* Action Buttons */}
+          {report && (
+            <div className="flex-[0.3] flex items-center justify-center">
+              <div className="flex justify-center gap-3 sm:gap-5">
+                <button
+                  className="p-3 m-2 bg-gray-300 rounded-full shadow-lg hover:bg-gray-400 transition"
+                  title="Download"
+                  onClick={handleRestart}
+                >
+                  <VscDebugRestart className="text-gray-600 text-xl" />
+                </button>
+                <button
+                  className="p-3 m-2 bg-gray-300 rounded-full shadow-lg hover:bg-gray-400 transition"
+                  title="Download"
+                  onClick={() => handleDownloadReport(report)}
+                >
+                  <FaDownload className="text-gray-600 text-xl" />
+                </button>
 
-              <button
-                className="p-3 bg-gray-100 rounded-full shadow-md hover:bg-gray-100 transition"
-                title="AI Action"
-              >
-                <FaRobot className="text-gray-400 text-xl" />
-              </button>
+                <button
+                  className="p-3 m-2 bg-gray-300 rounded-full shadow-lg hover:bg-gray-400 transition"
+                  title="AI Action"
+                  onClick={() => setIsChatOpen(!isChatOpen)}
+                >
+                  <FaRobot className="text-gray-600 text-xl" />
+                </button>
 
-              <button
-                className="p-3 bg-white rounded-full shadow-md hover:bg-gray-100 transition"
-                title="More Details"
-              >
-                <FaInfoCircle className="text-gray-600 text-xl" />
-              </button>
+                <button
+                  className="p-3 m-2 bg-gray-300 rounded-full shadow-lg hover:bg-gray-400 transition"
+                  title="More Details"
+                >
+                  <FaInfoCircle className="text-gray-600 text-xl" />
+                </button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
-        <div className="col-span-7 p-4  row-span-4 bg-white">
-          {
-            // report &&
-            <ReportDisplay report={report} />
-          }
+        {/* Right Panel */}
+        <div className="w-full lg:w-3/5 bg-white rounded-xl shadow-xl p-4 flex items-center justify-center">
+          <ReportDisplay report={report} />
         </div>
       </div>
-
+      {/* ChatBot Button for Mobile */}
       <div className="fixed bottom-4 right-4">
         <button
           onClick={() => setIsChatOpen(!isChatOpen)}
@@ -62,9 +87,8 @@ const DashBoard = () => {
         </button>
       </div>
 
-      {/* ChatBot Panel */}
       {isChatOpen && (
-        <div className="fixed bottom-20 right-10 w-85 max-h-[80vh] bg-white border-1 overflow-hidden border-gray-200 shadow-2xl rounded-lg overflow-y-auto">
+        <div className="fixed bottom-10 right-10 w-90 h-auto cover  rounded-lg p-4">
           <ChatBot />
         </div>
       )}

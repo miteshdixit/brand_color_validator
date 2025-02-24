@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 import { FiUpload, FiTrash2 } from "react-icons/fi";
 import axios from "axios";
 
-const ImageUpload = ({ onUploadSuccess, setReport }) => {
+const ImageUpload = ({ setReport, setIsImage, isImage }) => {
   const [uploading, setUploading] = useState(false);
   const [uploadedImage, setUploadedImage] = useState(null);
 
@@ -35,11 +35,12 @@ const ImageUpload = ({ onUploadSuccess, setReport }) => {
       );
 
       setReport(response.data);
-      setUploadedImage(response.data.fileUrl); // Store uploaded image URL
-      onUploadSuccess(response.data.fileUrl);
+      setUploadedImage(response.data.fileUrl);
+      setIsImage(true);
       setUploading(false);
     } catch (error) {
       console.error("Upload failed", error);
+      alert("Turn on backend - Failed", error);
       setUploading(false);
     }
   };
@@ -47,13 +48,14 @@ const ImageUpload = ({ onUploadSuccess, setReport }) => {
   const handleRemoveImage = () => {
     setUploadedImage(null);
     setReport(null);
+    setIsImage(false);
   };
 
   return (
-    <div className="flex item-center justify-center">
+    <div className="flex item-center justify-center w-full h-1/2 align-middle">
       <div
         {...getRootProps()}
-        className={`item-center border-2 w-full  border-dashed  rounded-lg lg:w-[400px] p-6 cursor-pointer text-center transition-colors duration-200 relative ${
+        className={`item-center border-2 w-full  border-dashed  rounded-lg lg:w-[400px]  p-6 cursor-pointer text-center transition-colors duration-200 relative h-80 ${
           isDragActive
             ? "border-blue-500 bg-blue-100"
             : "border-gray-300 bg-white"
@@ -61,12 +63,12 @@ const ImageUpload = ({ onUploadSuccess, setReport }) => {
       >
         <input {...getInputProps()} />
 
-        {uploadedImage ? (
-          <div className="flex flex-col justify-center items-center ">
+        {uploadedImage && isImage ? (
+          <div className="flex flex-col justify-center items-center align-middle  ">
             <img
               src={uploadedImage}
               alt="Uploaded Preview"
-              className=" rounded-lg object-cover  h-60 w-auto"
+              className=" rounded-lg object-cover m-auto h-60"
             />
             {/* Remove Button */}
             <button
@@ -79,7 +81,7 @@ const ImageUpload = ({ onUploadSuccess, setReport }) => {
           </div>
         ) : (
           <>
-            <FiUpload size={48} className="mx-auto text-gray-500" />
+            <FiUpload size={48} className="mx-auto text-gray-500 mt-6" />
             <h2 className="text-lg font-medium mt-2">
               {isDragActive
                 ? "Drop image here"
@@ -96,6 +98,9 @@ const ImageUpload = ({ onUploadSuccess, setReport }) => {
               Browse Files
             </button>
 
+            {uploading && (
+              <h1 className="text-grey-100 text-md m-2 mt-3 ">Analysing...</h1>
+            )}
             {uploading && (
               <div className="w-full bg-gray-200 rounded-full h-3 mt-4 overflow-hidden">
                 <div
