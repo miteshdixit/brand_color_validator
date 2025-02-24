@@ -1,8 +1,5 @@
 import React from "react";
 import { FaExclamationTriangle, FaCheckCircle } from "react-icons/fa";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-
-ChartJS.register(ArcElement, Tooltip, Legend);
 
 const AccessibilityReport = ({ accessibilityIssues }) => {
   const hasIssues = accessibilityIssues.length > 0;
